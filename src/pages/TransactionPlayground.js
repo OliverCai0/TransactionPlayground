@@ -4,27 +4,26 @@ export const TransactionPlayground = () => {
 
     const signTransaction = async() => {
         console.log("In signTransaction");
-        const from = document.getElementById("from").value;
         console.log("Got From");
         let nonce;
+        let signer;
         try{
-            nonce  = await web3.getTransactionCount(from);
+            signer = await web3.getSigner();
+            nonce  = await web3.getTransactionCount(signer.address);
         }
         catch(e){
             console.log("Error retrieving nonce", e);
         }
         console.log("Nonce", nonce);
 
-        const tx = new ethers.Transaction({
-            nonce,
-            from,
-            to: document.getElementById("to").value,
-            data: document.getElementById("data").value,
-        })
-
         try{
-            const signer = await web3.getSigner();
-            const signed = await signer.signTransaction(tx);
+            const signed = await signer.signTransaction({
+                nonce: nonce,
+                from: signer.address,
+                to: document.getElementById("to").value,
+                data: document.getElementById("data").value,
+                value: 0,
+            });
             // signer.sendTransaction(tx);
         }
         catch(e){
@@ -55,23 +54,36 @@ export const TransactionPlayground = () => {
     }
 
     return (
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center", height: "50vh"}}>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "75%", width: "100%"}}>
             <h1> Transaction Playground </h1>
-            <button onClick={connectWallet} style={{ width: "50vh"}}>
+            <h3 style={{textAlign: "center"}}> Test contract invocations against the coinbase wallet extension. No sending enabled. </h3>
+            <button onClick={connectWallet} style={styles.button}>
                 Connect Coinbase Wallet
             </button>
-            <form style={{display: "flex", flexDirection: "column"}}>
-                <label>
-                    <div>From</div> <input id="from" style={{ width: "50vh"}}/>
+            <form style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent:"center", height: "50%", width: "75%"}}>
+                <label style={{...styles.container , justifyContent: "center"}}>
+                    <div style={{width : "15%", textAlign: "left"}}>To</div> <input id="to" style={styles.input}/>
                 </label>
-                <label>
-                    <div>To</div> <input id="to" style={{ width: "50vh"}}/>
-                </label>
-                <label>
-                    <div>Data</div> <textarea id="data" style={{ width: "50vh"}}></textarea>
+                <label style={{...styles.container , justifyContent: "center", flex: ".5"}}>
+                    <div style={{width : "15%", textAlign: "left"}}>Data</div> <textarea id="data" style={{...styles.input, height: "75%"}}></textarea>
                 </label>
             </form>
-            <button onClick={signTransaction} style={{ width: "50vh"}}> Sign</button>
+            <button onClick={signTransaction} style={styles.button}> Sign</button>
         </div>
     );
+}
+
+const styles = {
+    button : {
+        width: "50%",
+    },
+    input : {
+        width: "100%",
+    },
+    container : {
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
+        justifyContent:"center"
+    }
 }
