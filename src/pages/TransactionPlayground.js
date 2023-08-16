@@ -15,6 +15,7 @@ export const TransactionPlayground = () => {
             console.log("Error retrieving nonce", e);
         }
         console.log("Nonce", nonce);
+        console.log("Value", document.getElementById("value").value);
 
         try{
             const signed = await signer.signTransaction({
@@ -22,7 +23,7 @@ export const TransactionPlayground = () => {
                 from: signer.address,
                 to: document.getElementById("to").value,
                 data: document.getElementById("data").value,
-                value: 0,
+                value: parseInt(document.getElementById("value").value),
             });
             // signer.sendTransaction(tx);
         }
@@ -64,6 +65,9 @@ export const TransactionPlayground = () => {
                 <label style={{...styles.container , justifyContent: "center"}}>
                     <div style={{width : "15%", textAlign: "left"}}>To</div> <input id="to" style={styles.input}/>
                 </label>
+                <label style={{...styles.container , justifyContent: "center"}}>
+                    <div style={{width : "15%", textAlign: "left"}}>Val</div> <input id="value" style={styles.input}/>
+                </label>
                 <label style={{...styles.container , justifyContent: "center", flex: ".5"}}>
                     <div style={{width : "15%", textAlign: "left"}}>Data</div> <textarea id="data" style={{...styles.input, height: "75%"}}></textarea>
                 </label>
@@ -78,7 +82,7 @@ const styles = {
         width: "50%",
     },
     input : {
-        width: "100%",
+        width: "95%",
     },
     container : {
         display: "flex",
