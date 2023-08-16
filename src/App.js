@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { ethereum, web3 } from './pages/coinbaseIntegrations'
 
 function App() {
   return (
