@@ -37,9 +37,6 @@ export const TransactionPlayground = () => {
         }
         catch(e){
             console.log("Could not sign", e);
-            alert(e)
-            signButton.current.disabled = false;
-            return;
         }
         finally{
             console.log("Left signTransaction");
