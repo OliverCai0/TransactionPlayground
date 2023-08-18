@@ -28,7 +28,7 @@ export const TransactionPlayground = () => {
                 return;
             }
             finally{
-                console.log("wallet connect flow done");
+                console.log("wallet connect flow done"); 
             }
         }
         if(signer)
