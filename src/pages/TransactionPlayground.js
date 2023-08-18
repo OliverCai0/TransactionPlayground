@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
+import { Button, Input, Typography, Layout } from 'antd'
 
 export const TransactionPlayground = () => {
 
@@ -69,26 +70,30 @@ export const TransactionPlayground = () => {
     }
 
     return (
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "75%", width: "100%", maxWidth: "1000px"}}>
-            <h1> Transaction Playground </h1>
-            <h3 style={{textAlign: "center"}}> Test contract invocations against the coinbase wallet extension. No sending enabled. </h3>
-            {!walletAddress && <button onClick={connectWallet} style={styles.button}>
+        <Layout style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "75%", width: "100%", maxWidth: "1000px"}}>
+            <Layout.Header>
+                <Typography.Title> Transaction Playground </Typography.Title>
+            </Layout.Header>
+            <Typography.Text style={{textAlign: "center"}} strong={true}> Test contract invocations against the coinbase wallet extension. No sending enabled. </Typography.Text>
+            {!walletAddress && <Button onClick={connectWallet} style={styles.button}>
                 Connect Coinbase Wallet
-            </button>}
-            {walletAddress && <h4 style={{textAlign: "center"}}>Connected to {walletAddress}</h4>}
+            </Button>}
+            {walletAddress && <Typography.Text style={{textAlign: "center"}}>Connected to {walletAddress}</Typography.Text>}
+            <Layout.Content>
             <form style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent:"center", height: "50%", width: "75%", maxWidth: "500px"}}>
                 <label style={{...styles.container , justifyContent: "center"}}>
-                    <div style={{width : "15%", textAlign: "left"}}>To</div> <input id="to" style={styles.input}/>
+                    <Typography.Text  style={{width : "15%", textAlign: "left"}}>To</Typography.Text > <Input id="to" style={styles.input}/>
                 </label>
                 <label style={{...styles.container , justifyContent: "center"}}>
-                    <div style={{width : "15%", textAlign: "left"}}>Val</div> <input id="value" style={styles.input}/>
+                    <Typography.Text  style={{width : "15%", textAlign: "left"}}>Val</Typography.Text > <Input id="value" style={styles.input}/>
                 </label>
                 <label style={{...styles.container , justifyContent: "center", flex: ".5"}}>
-                    <div style={{width : "15%", textAlign: "left"}}>Data</div> <textarea id="data" style={{...styles.input, height: "75%"}}></textarea>
+                    <Typography.Text  style={{width : "15%", textAlign: "left"}}>Data</Typography.Text > <Input.TextArea id="data" style={{...styles.input, height: "75%"}}></Input.TextArea>
                 </label>
             </form>
-            <button onClick={signTransaction} style={styles.button} ref={signButton}> Sign</button>
-        </div>
+            <Button onClick={signTransaction} style={styles.button} ref={signButton}> Sign</Button>
+            </Layout.Content>
+        </Layout>
     );
 }
 
