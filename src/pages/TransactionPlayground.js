@@ -37,13 +37,13 @@ export const TransactionPlayground = () => {
     }
 
     return (
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80%", width: "100%", maxWidth: "1000px", borderRadius: "15px", padding: "20px",backgroundColor: "#f4f0ec" }}>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80%", width: "100%", maxWidth: "1000px", borderRadius: "15px", padding: "20px", backgroundColor: "#f4f0ec" }}>
             <h1 > Transaction Playground </h1>
             <p style={{textAlign: "center", padding: "7px", fontWeight: "bold"}} > Test contract invocations against the coinbase wallet extension. No sending enabled. </p>
             {!walletAddress && <button onClick={connectWallet} style={{...styles.button, margin: "5px"}}>
                 Connect Coinbase Wallet
             </button>}
-            {walletAddress && <p style={{textAlign: "center", padding: "5px"}}>Connected: {walletAddress}</p>}
+            {walletAddress && <p style={{textAlign: "center", padding: "5px", color: "#228B22"}}>Connected: {walletAddress}</p>}
             <div>
                 <button onClick={changeMode} disabled={mode=="Form Mode"} style={{...styles.button, margin: "5px"}}>Form Mode</button> <button onClick={changeMode} disabled={mode=="Demo Mode"} style={{...styles.button, margin: "5px"}}>Demo Mode</button>
             </div>
