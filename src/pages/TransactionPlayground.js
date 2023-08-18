@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
-import { Button, Input, Typography, Layout, Space } from 'antd'
 import { TransactionForm } from './TransactionForm';
 
 export const TransactionPlayground = () => {
@@ -38,23 +37,27 @@ export const TransactionPlayground = () => {
     }
 
     return (
-        <Layout style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80%", width: "100%", maxWidth: "1000px", borderRadius: "15px", padding: "20px" }}>
-            <Typography.Title style={{}}> Transaction Playground </Typography.Title>
-            <Typography.Text style={{textAlign: "center", padding: "7px"}} strong={true}> Test contract invocations against the coinbase wallet extension. No sending enabled. </Typography.Text>
-            {!walletAddress && <Button onClick={connectWallet} style={{...styles.button, margin: "5px"}}>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80%", width: "100%", maxWidth: "1000px", borderRadius: "15px", padding: "20px",backgroundColor: "#f4f0ec" }}>
+            <h1 > Transaction Playground </h1>
+            <p style={{textAlign: "center", padding: "7px", fontWeight: "bold"}} > Test contract invocations against the coinbase wallet extension. No sending enabled. </p>
+            {!walletAddress && <button onClick={connectWallet} style={{...styles.button, margin: "5px"}}>
                 Connect Coinbase Wallet
-            </Button>}
-            {walletAddress && <Typography.Text style={{textAlign: "center", padding: "5px"}}>Connected: {walletAddress}</Typography.Text>}
-            <Space.Compact>
-                <Button onClick={changeMode} disabled={mode=="Form Mode"}>Form Mode</Button> <Button onClick={changeMode} disabled={mode=="Demo Mode"}>Demo Mode</Button>
-            </Space.Compact>
+            </button>}
+            {walletAddress && <p style={{textAlign: "center", padding: "5px"}}>Connected: {walletAddress}</p>}
+            <div>
+                <button onClick={changeMode} disabled={mode=="Form Mode"} style={{...styles.button, margin: "5px"}}>Form Mode</button> <button onClick={changeMode} disabled={mode=="Demo Mode"} style={{...styles.button, margin: "5px"}}>Demo Mode</button>
+            </div>
             <TransactionForm></TransactionForm>
-        </Layout>
+        </div>
     );
 }
 
 const styles = {
     button : {
+        border: "white",
+        backgroundColor: "white",
+        borderRadius: "5px",
+        padding: "5px",
     },
     input : {
         width: "95%",

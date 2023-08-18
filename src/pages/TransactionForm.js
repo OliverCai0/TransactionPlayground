@@ -1,6 +1,5 @@
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
-import { Button, Input, Typography, Layout, Space } from 'antd'
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 export const TransactionForm = () => {
     const signButton = useRef();
@@ -43,32 +42,36 @@ export const TransactionForm = () => {
     }
 
     return (
-        <Layout.Content style={{
+        <div style={{
             width: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-around",
+            height: "80%"
         }}>
         <form style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent:"space-evenly", height: "75%", width: "85%", maxWidth: "600px"}}>
                     <label style={{...styles.container , justifyContent: "center"}}>
-                        <Typography.Text  style={{width : "15%", textAlign: "left"}}>To</Typography.Text > <Input id="to" style={styles.input}/>
+                        <p  style={{width : "15%", textAlign: "left"}}>To</p > <input id="to" style={styles.input}/>
                     </label>
                     <label style={{...styles.container , justifyContent: "center"}}>
-                        <Typography.Text  style={{width : "15%", textAlign: "left"}}>Val</Typography.Text > <Input id="value" style={styles.input}/>
+                        <p  style={{width : "15%", textAlign: "left"}}>Val</p > <input id="value" style={styles.input}/>
                     </label>
                     <label style={{...styles.container , justifyContent: "center", flex: ".5"}}>
-                        <Typography.Text  style={{width : "15%", textAlign: "left"}}>Data</Typography.Text > <Input.TextArea id="data" style={{...styles.input, height: "100%"}}></Input.TextArea>
+                        <p style={{width : "15%", textAlign: "left"}}>Data</p > <textarea id="data" style={{...styles.input, height: "100%"}}></textarea>
                     </label>
         </form>
-        <Button onClick={signTransaction} style={styles.button} ref={signButton}> Sign</Button>
-        </Layout.Content>
+        <button onClick={signTransaction} style={{...styles.button, width: "50%"}} ref={signButton}> Sign</button>
+        </div>
     )
 }
 
 const styles = {
     button : {
-        width: "50%",
+        border: "white",
+        backgroundColor: "white",
+        borderRadius: "5px",
+        padding: "5px",
     },
     input : {
         width: "95%",
