@@ -21,7 +21,8 @@ export const TransactionForm = () => {
             return;
         }
         console.log("Nonce", nonce);
-        console.log("Value", document.getElementById("value").value);
+        console.log("Value", parseInt(document.getElementById("value").value));
+        console.log("Value", document.getElementById("data").value);
 
         try{
             const signed = await signer.signTransaction({
