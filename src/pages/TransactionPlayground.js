@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react';
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
 import { TransactionForm } from './TransactionForm';
+import { MulticallForm } from './MulticallForm';
 
 export const TransactionPlayground = () => {
 
     const [ walletAddress, setWalletAddress] = useState(null);
-    const [ mode, setMode ] = useState("Form Mode");
+    const [ mode, setMode ] = useState("Multicall Mode");
 
     const changeMode = (e) => {
         console.log(e);
@@ -44,10 +45,12 @@ export const TransactionPlayground = () => {
                 Connect Coinbase Wallet
             </button>}
             {walletAddress && <p style={{textAlign: "center", padding: "5px", color: "#228B22"}}>Connected: {walletAddress}</p>}
-            {/* <div>
-                <button onClick={changeMode} disabled={mode=="Form Mode"} style={{...styles.button, margin: "5px"}}>Form Mode</button> <button onClick={changeMode} disabled={mode=="Demo Mode"} style={{...styles.button, margin: "5px"}}>Demo Mode</button>
-            </div> */}
-            <TransactionForm></TransactionForm>
+            <div>
+                <button onClick={changeMode} disabled={mode=="Form Mode"} style={{...styles.button, margin: "5px"}}>Form Mode</button> 
+                <button onClick={changeMode} disabled={mode=="Multicall Mode"} style={{...styles.button, margin: "5px"}}>Multicall Mode</button>
+            </div>
+            {mode == "Form Mode" && <TransactionForm/>}
+            {mode == "Multicall Mode" && <MulticallForm/>}
         </div>
     );
 }
