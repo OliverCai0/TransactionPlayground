@@ -1,43 +1,38 @@
 import { useRef, useState } from 'react'
+import { ethereum, web3, ethers } from './coinbaseIntegrations'
 
 let ElonMarkBackground = require( '../elonvsmusk.png' )
 
 export const ElonMuskVsMark = () => {
 
-    const MIN = 1000000000
-    const MAX = 10000000000
+    const [ walletAddress, setWalletAddress] = useState(null);
 
-    function getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-    const muskPool = useState(getRandomArbitrary(MIN, MAX))
-    const markPool = useState(getRandomArbitrary(MIN, MAX))
+    const connectWallet = async() => {
+        const signer = await web3.getSigner()
+        console.log(signer);
+        if(ethereum.isConnected()  && !signer)
+        {
+            try {
+                const response = await web3.send("eth_requestAccounts", []);
+                console.log(response);
+            }
+            catch(e){
+                alert("Unable to connect wallet")
+                console.log(e);
+                return;
+            }
+            finally{
+                console.log("wallet connect flow done"); 
+            }
+        }
+        if(signer)
+        {
+            setWalletAddress(signer.address);
+        }
+    }
 
     const muskButton = useRef();
     const markButton = useRef();
-
-    const fadeInAnimation = (e) => {
-        if(e.target.id === 'musk'){
-            muskButton.current.style.backgroundColor = "black";
-            muskButton.current.style.color = "white";
-        }
-        else{
-            markButton.current.style.backgroundColor = "black";
-            markButton.current.style.color = "white";
-        }
-    }
-
-    const fadeOutAnimation = (e) => {
-        if(e.target.id === 'musk'){
-            muskButton.current.style.backgroundColor = "white";
-            muskButton.current.style.color = "black";
-        }
-        else{
-            markButton.current.style.backgroundColor = "white";
-            markButton.current.style.color = "black";
-        }
-    }
 
     return(
         <div
@@ -50,8 +45,9 @@ export const ElonMuskVsMark = () => {
             justifyContent: "center",
             alignItems: "center",
             backgroundImage: `url(${ElonMarkBackground})`,
-            backgroundSize: '100%',
-            flexDirection: "row"
+            flexDirection: "row",
+            backgroundSize: "cover",
+            backgroundPositionX: "center",
          }}>
             <div
                 style={{
@@ -69,7 +65,9 @@ export const ElonMuskVsMark = () => {
                     style={{
                         color: "white",
                         borderRadius: "15px",
-                        fontSize: "80px"
+                        fontSize: "xxx-large",
+                        padding: "10px",
+                        textAlign: "center"
                     }}  
                 >
                     Welcome to Rome
@@ -79,6 +77,7 @@ export const ElonMuskVsMark = () => {
                     style={{
                         color: "white",
                         padding: "5px",
+                        margin: "10px",
                     }}  
                 >
                     How it works: 
@@ -87,14 +86,17 @@ export const ElonMuskVsMark = () => {
                     style={{
                         color: "white",
                         padding: "5px",
-                        borderRadius: "15px"
+                        borderRadius: "15px",
+                        margin: "10px",
                     }}  
                 >
-                    Click to transfer 0.1 ETH to the pool, join a team, and receive a free Elon V Zuck NFT. Each
-                    member of the winning team will receive a percentage of the opposing team's pool proportional to 
-                    their contribution.
+                    Click to transfer 0.01 ETH to the pool and receive a free Elon or Zuck NFT.
                 </h3>
                 </div>
+                {!walletAddress && <button onClick={connectWallet} style={{ margin: "5px", color: "white", backgroundColor: "black"}}>
+                Connect Coinbase Wallet
+                </button>}
+                {walletAddress && <p style={{textAlign: "center", color: "#228B22", overflowWrap: "anywhere"}}>Connected: {walletAddress}</p>}
                 <div
                     style={{
                         flex: "1",
@@ -107,15 +109,16 @@ export const ElonMuskVsMark = () => {
                         textAlign: "center",
                         flex: 1,
                         borderRadius: "15px",
+                        margin: "10px",
                     }}
                     ref={muskButton}
                     id='musk'
-                    onMouseOver={fadeInAnimation}
-                    onMouseLeave={fadeOutAnimation}
+                    // onMouseOver={fadeInAnimation}
+                    // onMouseLeave={fadeOutAnimation}
                 >
                     <h2
                     style={{
-                        fontSize: "80px"
+                        fontSize: "xx-large"
                     }}
                     >Musk</h2>
                 </button>
@@ -127,15 +130,16 @@ export const ElonMuskVsMark = () => {
                         textAlign: "center",
                         flex: 1,
                         borderRadius: "15px",
+                        margin: "10px",
                     }}
                     ref={markButton}
                     id='mark'
-                    onMouseOver={fadeInAnimation}
-                    onMouseLeave={fadeOutAnimation}
+                    // onMouseOver={fadeInAnimation}
+                    // onMouseLeave={fadeOutAnimation}
                 >
                     <h2
                     style={{
-                        fontSize: "80px"
+                        fontSize: "xx-large"
                     }}
                     >Zuck</h2>
                 </button>
