@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
 import { TransactionForm } from './TransactionForm';
-import { MulticallForm } from './MulticallForm';
+// import { MulticallForm } from './MulticallForm';
+// import { Permit2Form } from './Permit2Form';
 
 export const TransactionPlayground = () => {
 
@@ -46,11 +47,14 @@ export const TransactionPlayground = () => {
             </button>}
             {walletAddress && <p style={{textAlign: "center", padding: "5px", color: "#228B22"}}>Connected: {walletAddress}</p>}
             <div>
-                <button onClick={changeMode} disabled={mode=="Form Mode"} style={{...styles.button, margin: "5px"}}>Form Mode</button> 
+                {/* <button onClick={changeMode} disabled={mode=="Form Mode"} style={{...styles.button, margin: "5px"}}>Form Mode</button> 
                 <button onClick={changeMode} disabled={mode=="Multicall Mode"} style={{...styles.button, margin: "5px"}}>Multicall Mode</button>
+                <button onClick={changeMode} disabled={mode=="Permit2 Mode"} style={{...styles.button, margin: "5px"}}>Permit2 Mode</button> */}
             </div>
-            {mode == "Form Mode" && <TransactionForm/>}
+            <TransactionForm/>
+            {/* {mode == "Form Mode" && <TransactionForm/>}
             {mode == "Multicall Mode" && <MulticallForm/>}
+            {mode == "Permit2 Mode" && <Permit2Form/>} */}
         </div>
     );
 }

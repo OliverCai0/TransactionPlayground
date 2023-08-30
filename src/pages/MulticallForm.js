@@ -41,20 +41,20 @@ export const MulticallForm = () => {
        for(const [key, value] of Object.entries(formData)){
         console.log(value);
         // Encode the function data, only approve for now
-       const encodedCallData = erc20.encodeFunctionData("approve",
-            [
-                value["data"]["spender"],
-                value["data"]["amount"],
-            ]
-        )
+        const encodedCallData = erc20.encodeFunctionData("approve",
+                [
+                    value["data"]["spender"],
+                    value["data"]["amount"],
+                ]
+            )
 
-        console.log("encoded call data", encodedCallData);
+            console.log("encoded call data", encodedCallData);
 
-        // Attach the encoded function data to an "aggregate" call
-        calls.push({
-            target: value["addressTarget"],
-            callData: encodedCallData,
-        })
+            // Attach the encoded function data to an "aggregate" call
+            calls.push({
+                target: value["addressTarget"],
+                callData: encodedCallData,
+            })
        }
 
        const encodedMultiCall = delegateCall.encodeFunctionData("aggregate", 
