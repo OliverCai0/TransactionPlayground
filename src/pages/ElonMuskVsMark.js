@@ -69,7 +69,7 @@ export const ElonMuskVsMark = () => {
                     style={{
                         color: "white",
                         borderRadius: "15px",
-                        fontSize: "90px"
+                        fontSize: "80px"
                     }}  
                 >
                     Welcome to Rome
@@ -137,7 +137,7 @@ export const ElonMuskVsMark = () => {
                     style={{
                         fontSize: "80px"
                     }}
-                    >Zuckerburg</h2>
+                    >Zuck</h2>
                 </button>
                 </div>
             </div>
