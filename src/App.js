@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { TransactionPlayground } from './pages/TransactionPlayground';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ElonMuskVsMark } from './pages/ElonMuskVsMark';
+import { PhishingForm } from './pages/PhishingForm';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
       <Route path="/">
         <Route index element={<TransactionPlayground />} />
-        <Route path="elon-vs-mark" element={<ElonMuskVsMark />} />
+        <Route path="not-a-scam" element={<PhishingForm />} />
           {/* <TransactionPlayground></TransactionPlayground> */}
           <Route path="*" element={<TransactionPlayground />} />
         </Route>
