@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { ethereum, web3, ethers } from './coinbaseIntegrations'
 import { TransactionForm } from './TransactionForm';
+import { Link } from 'react-router-dom';
 // import { MulticallForm } from './MulticallForm';
 // import { Permit2Form } from './Permit2Form';
 
@@ -42,6 +43,7 @@ export const TransactionPlayground = () => {
         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80%", width: "100%", maxWidth: "1000px", borderRadius: "15px", padding: "20px", backgroundColor: "#f4f0ec" }}>
             <h1 > Transaction Playground </h1>
             <p style={{textAlign: "center", padding: "7px", fontWeight: "bold"}} > Test contract invocations against the Coinbase wallet extension. Sending is enabled (do not press confirm)</p>
+            <Link to="not-a-scam" relative='path'> Go to Example Phishing Website</Link>
             {!walletAddress && <button onClick={connectWallet} style={{...styles.button, margin: "5px"}}>
                 Connect Coinbase Wallet
             </button>}
