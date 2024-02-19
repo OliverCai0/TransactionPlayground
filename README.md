@@ -1,6 +1,6 @@
 # Simple Interface For Smart Contract Execution
 
-A simple React interface to input smart contract address and parameters using the Coinbase Wallet, with some additional features. Designed
+A simple React interface to invoke smart contracts with the Coinbase Wallet, plus some additional features. Designed
 mainly to QA the Coinbase transaction preview service on the mobile simulator. Currently hosted at [transaction-playground.com](https://transaction-playground.com/) with AWS EC2, Cloudflare, and Nginx.
 
 ## Main Interface
